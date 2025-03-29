@@ -1,0 +1,29 @@
+bits 16
+
+global write_str
+
+section .boot
+
+;----------------------------------------------------------
+write_str:
+; receives: si = address to null-terminated string
+; returns:  nothing
+;----------------------------------------------------------
+    push    ax
+    push    bx
+    push    si
+    cld
+.loop:
+    lodsb
+    or      al, al
+    jz      .done
+    mov     ah, 0x0E
+    mov     bh, 0x00
+    int     0x10
+    jmp     .loop
+.done:
+    pop     si
+    pop     bx
+    pop     ax
+    ret
+
