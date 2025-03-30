@@ -9,7 +9,12 @@ section .text
 kernel:
     mov     si, msg
     call    write_str
+
+    mov     ah, 0x0f
+    int     0x10
+    xor     ah, ah
+    call    write_hex
     jmp     $
 
-msg: db "Jag tycker om min hund", 0x0d, 0x0a, 0
+msg: db "video mode: ", 0
 
